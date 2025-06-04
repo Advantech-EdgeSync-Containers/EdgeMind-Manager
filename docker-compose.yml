@@ -1,0 +1,161 @@
+version: '3'
+services:
+     androidlink: 
+        image: harbor.edgesync.cloud/xian-embedded/edgemind-manager/apphub-manager:v3.0.0
+        restart: always
+        depends_on:
+                - mqtt
+                - db
+        volumes:
+                - ./logs/manager:/root/adv/manager/logs
+                - ./data/license:/root/adv/license
+                - /sys:/sys
+                - ./logs/repo:/root/adv/repo/logs
+
+        ports:
+                - "8080:8080"
+                - "8081:8081"
+                - "30001:30001"
+        environment:
+           TZ: "Asia/Shanghai"
+           DATABASE_TYPE: sqlite3
+           datacenter: local
+           subscriptionId: "123"
+           company: "123"
+           CHECK_LOCAL_HOST: "true"
+        logging:
+           driver: json-file
+           options:
+              max-size: "1m"  # 限制每个日志文件为10MB
+        dns:
+                - 8.8.8.8
+                - 114.114.114.114
+        env_file:
+                - ./.env
+        command: /root/adv/run.sh
+        container_name: apphub
+        networks: 
+                - advnet
+     ithing:
+        image: harbor.edgesync.cloud/xian-embedded/edgemind-manager/apphub-ithings:v1.6
+        restart: always
+        depends_on:
+                - mqtt
+                - db
+                - influxDB
+                - androidlink
+        volumes:
+                - ./logs/ithings:/root/adv/ithings/logs
+        ports:
+                - "8082:8082"
+        environment:
+           LOG_PATH: "/root/adv/ithings/logs/ithings.log"
+           TZ: "Asia/Shanghai"
+        env_file:
+                - ./.env
+        command: /root/adv/run.sh
+        container_name: ithing
+        networks:
+                - advnet
+        logging:
+           driver: json-file
+           options:
+              max-size: "10k"
+     mqtt:
+        image: harbor.edgesync.cloud/xian-embedded/edgemind-manager/apphub-emqx:v1.2
+        restart: always
+        ports: 
+                - "1883:1883"
+                - "18083:18083"
+                - "8083:8083"
+        env_file:
+                - ./.env
+        container_name: m2m_mosquitto
+        networks: 
+              - advnet
+        logging:
+           driver: json-file
+           options:
+              max-size: "10k"
+     db:
+        image: harbor.edgesync.cloud/xian-embedded/edgemind-manager/apphub-postgres:v1.2
+        restart: always
+        ports:
+                - "5432:5432"
+        command:
+                - "postgres"
+                - "-c"
+                - "max_connections=500"
+                - "-c"
+                - "shared_buffers=1024MB"
+                - "-c"
+                - "work_mem=131072"
+        env_file:
+                - ./.env
+        volumes:
+                - ./data/postgresql/data:/var/lib/postgresql/data
+        container_name: m2m-postgresSQL
+        networks: 
+              - advnet
+        logging:
+           driver: json-file
+           options:
+              max-size: "10k"
+     novnc:
+        image: harbor.edgesync.cloud/xian-embedded/edgemind-manager/apphub-novnc:v1.3
+        restart: always
+        volumes:
+                - ./logs/noVnc:/root/adv/log
+        ports:
+                - "9191:9191"
+                - "5901:5901"
+                - "5500:5500"
+                - "50500-50510:50500-50510"
+                - "8024:8024"
+                - "1000:8180"
+        command: /root/adv/run.sh
+        container_name: apphub-nat
+        networks: 
+                - advnet
+        logging:
+           driver: json-file
+           options:
+              max-size: "10k"
+     minio:
+        image: harbor.edgesync.cloud/xian-embedded/edgemind-manager/apphub-minio:v1.1
+        restart: always
+        ports:
+                - "9000:9000"
+        volumes:
+                - ./data/minio:/data
+        command: /root/adv/run.sh
+        container_name: minio
+        networks:
+                - advnet
+        logging:
+           driver: json-file
+           options:
+              max-size: "10k"
+     influxDB:
+        image: harbor.edgesync.cloud/xian-embedded/edgemind-manager/apphub-influxdb:v1.2
+        restart: always
+        ports:
+                - "8086:8086"
+        volumes:
+                - ./data/influxdb:/var/lib/influxdb
+        env_file:
+                - ./.env
+        container_name: m2m-influxdb
+        networks:
+                - advnet
+        logging:
+           driver: json-file
+           options:
+              max-size: "10k"
+networks:
+    advnet:
+        driver: bridge
+        ipam:
+             driver: default
+             config:
+                    - subnet: 172.240.10.0/24
