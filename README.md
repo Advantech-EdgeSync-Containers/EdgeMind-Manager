@@ -10,9 +10,7 @@ environments, significantly reducing operational costs.
 
 # Demo
 
-
-![EdgeMind-Manager_demo_1](https://github.com/user-attachments/assets/f341e9f9-d9ea-4f3a-bfa6-ea346da658d3)
-
+![DeviceOn EIM](https://github.com/user-attachments/assets/d7cc302f-3cdd-4c24-b0f4-fe0e3320db86)
 
 
 
