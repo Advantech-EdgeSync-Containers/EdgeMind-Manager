@@ -1,5 +1,5 @@
 # DeviceOn-EIM Overview
-DeviceOn-EIM(Edge Intelligence Management) is a one-stop industrial IoT solution dedicated to addressing remote device management, device monitoring and operation & maintenance, as well as industrial data collection and visualization. The
+DeviceOn-EIM(**E**dge **I**ntelligence **M**anagement) is a one-stop industrial IoT solution dedicated to addressing remote device management, device monitoring and operation & maintenance, as well as industrial data collection and visualization. The
 management interface is web-based, offering a simple, convenient, and feature-rich experience that is easy to
 integrate. It effectively enhances the management and maintenance efficiency of edge devices in industrial
 environments, significantly reducing operational costs.
