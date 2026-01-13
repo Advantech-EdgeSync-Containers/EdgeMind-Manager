@@ -3,11 +3,9 @@ DeviceOn-EIM(Edge Intelligence Management) is a one-stop industrial IoT solution
 management interface is web-based, offering a simple, convenient, and feature-rich experience that is easy to
 integrate. It effectively enhances the management and maintenance efficiency of edge devices in industrial
 environments, significantly reducing operational costs.
-<img width="1920" height="1080" alt="EIM-3" src="https://github.com/user-attachments/assets/3f03fbed-58e9-4bf8-92e2-74ebcd63ae08" />
-<img width="1920" height="1080" alt="EIM-2" src="https://github.com/user-attachments/assets/b31e77c4-fdc5-4cd5-b47c-6fa0bbcdcfea" />
 <img width="1920" height="1080" alt="EIM-1" src="https://github.com/user-attachments/assets/fa9c8b46-0f61-4a26-a57c-93581360ebea" />
-
-
+<img width="1920" height="1080" alt="EIM-2" src="https://github.com/user-attachments/assets/b31e77c4-fdc5-4cd5-b47c-6fa0bbcdcfea" />
+<img width="1920" height="1080" alt="EIM-3" src="https://github.com/user-attachments/assets/3f03fbed-58e9-4bf8-92e2-74ebcd63ae08" />
 
 # Demo
 
