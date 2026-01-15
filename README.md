@@ -88,7 +88,7 @@ You will see the login page with following default credentials:
 - Username: `admin`  
 - Password: `admin`  
 
-## Contact
+# Contact
 
 If you are interested in this project, have questions, or would like to discuss potential collaborations, feel free to reach out via email:
 
