@@ -1,7 +1,7 @@
 version: '3'
 services:
      androidlink: 
-        image: harbor.edgesync.cloud/xian-embedded/eim/manager:v4.0.0
+        image: harbor.edgesync.cloud/xian-embedded/eim/manager:v4.0.1
         restart: always
         depends_on:
                 - mqtt
@@ -41,7 +41,7 @@ services:
         networks: 
                 - advnet
      ithing:
-        image: harbor.edgesync.cloud/xian-embedded/eim/ithings:v4.0.0
+        image: harbor.edgesync.cloud/xian-embedded/eim/ithings:v4.0.1
         restart: always
         depends_on:
                 - mqtt
